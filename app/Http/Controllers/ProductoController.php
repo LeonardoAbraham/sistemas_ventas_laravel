@@ -29,7 +29,8 @@ class ProductoController extends Controller
                                 ->orWhere('nombre', 'like', "%{$request->txtBuscar}%")
                                 ->paginate(5);
 
-        return $productos;
+        //return $productos;
+        return \response()->json($productos,200);
     }
 
     /**
@@ -55,7 +56,8 @@ class ProductoController extends Controller
     {
         //select * from prducto where id=$id
         $producto = Producto::with(['user:id,email,name'])->find($id);
-        return $producto;
+        //return $producto;
+        return \response()->json($producto,200);
     }
 
     /**
@@ -80,8 +82,14 @@ class ProductoController extends Controller
     //metodo para eliminar registros
     public function destroy($id)
     {
-        //delete from producto where id = $id
-        Producto::destroy($id);
-        return \response()->json(['res' => true, 'message'=>'eliminado correctamente']);
+        try {
+            //delete from producto where id = $id
+            Producto::destroy($id);
+            return \response()->json(['res' => true, 'message'=>'eliminado correctamente'], 200);
+        } catch (\Exception $e) {
+            return \response()->json(['res' => false, 'message'=> $e->getMessage()], 200);
+        }
+
+
     }
 }
