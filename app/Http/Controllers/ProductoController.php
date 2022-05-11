@@ -20,7 +20,7 @@ class ProductoController extends Controller
         //$productos = Producto::all(); //trae todos los datos de un producto
 
         //personalizado cuando queremos traer información que no es propia de la tabla Producto, en este caso se agrega la informacion del usuario.
-        $productos = Producto::with(['user:id,email,name'])->get();
+        $productos = Producto::with(['user:id,email,name'])->paginate(10);
 
         return $productos;
     }
