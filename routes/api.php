@@ -24,3 +24,4 @@ Route::get("/prueba", function(){
 });
 
 Route::get('productos', [\App\Http\Controllers\ProductoController::class, 'index']);
+Route::get('productos/{producto}', [\App\Http\Controllers\ProductoController::class, 'show']);

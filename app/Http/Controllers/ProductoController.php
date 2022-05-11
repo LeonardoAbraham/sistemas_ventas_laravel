@@ -42,9 +42,13 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     //recoger un solo registro de la base de datos
     public function show($id)
     {
-        //
+        //select * from prducto where id=$id
+        $producto = Producto::with(['user:id,email,name'])->find($id);
+        return $producto;
     }
 
     /**
