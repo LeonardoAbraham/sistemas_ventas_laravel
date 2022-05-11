@@ -14,13 +14,20 @@ class ProductoController extends Controller
      */
 
     //listar y buscar dentro de una tabla: Producto
-    public function index()
+    public function index( Request $request )
     {
         //select * from producto(ORM, Laravel ... ELOQUENT)
         //$productos = Producto::all(); //trae todos los datos de un producto
 
         //personalizado cuando queremos traer información que no es propia de la tabla Producto, en este caso se agrega la informacion del usuario.
-        $productos = Producto::with(['user:id,email,name'])->paginate(10);
+        //$productos = Producto::with(['user:id,email,name'])->paginate(10);
+
+
+        //select * from producto where nombre like '%par%'
+        $productos = Producto::with(['user:id,email,name'])
+                                ->whereCodigo($request->txtBuscar) //->where('codigo', '=', $request->txtBuscar)
+                                ->orWhere('nombre', 'like', "%{$request->txtBuscar}%")
+                                ->paginate(5);
 
         return $productos;
     }
