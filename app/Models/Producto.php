@@ -22,6 +22,8 @@ class Producto extends Model
         "user_id"
     ];
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     //relaciones
     public function user(){
         return $this->belongsTo(User::class);
