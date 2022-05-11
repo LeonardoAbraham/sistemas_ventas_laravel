@@ -76,8 +76,12 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    //metodo para eliminar registros
     public function destroy($id)
     {
-        //
+        //delete from producto where id = $id
+        Producto::destroy($id);
+        return \response()->json(['res' => true, 'message'=>'eliminado correctamente']);
     }
 }
