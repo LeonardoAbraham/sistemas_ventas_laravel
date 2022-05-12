@@ -13,6 +13,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    //No es necesario realizar la siguiente linea, por convencion de nombres en sigular y plural, esto si la palabra esta en ingles, de otro modo si es necesario
+    protected $table = "users";
+
     /**
      * The attributes that are mass assignable.
      *
