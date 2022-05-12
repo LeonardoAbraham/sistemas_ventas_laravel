@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProductoRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -39,9 +40,14 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //insertar nuevos registros
+    public function store(CreateProductoRequest $request)
     {
-        //
+        //insert into productos values(.....$request)
+        $input = $request->all();
+        $input['user_id'] = 1; //usuario autenticado
+        $producto = Producto::create($input);
+        return \response()->json(['res' => true, 'message'=>'insertado correctamente'], 200);
     }
 
     /**
