@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateProductoRequest;
+use App\Http\Requests\UpdateProductoRequest;
 use App\Models\Producto;
 use Illuminate\Http\Request;
 
@@ -73,9 +74,15 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    // para modificar registros
+    public function update(UpdateProductoRequest $request, $id)
     {
-        //
+        //update productos set nombre = $request ..... where id = $id
+        $input = $request->all();
+        $producto = Producto::find($id);
+        $producto->update($input);
+
+        return \response()->json(['res' => true, 'message'=>'modificado correctamente', 200]);
     }
 
     /**

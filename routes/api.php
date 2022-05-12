@@ -23,7 +23,12 @@ Route::get("/prueba", function(){
     return \App\Models\Producto::all();
 });
 
+/*
 Route::get('productos', [\App\Http\Controllers\ProductoController::class, 'index']);
 Route::get('productos/{producto}', [\App\Http\Controllers\ProductoController::class, 'show']);
 Route::delete('productos/{producto}', [\App\Http\Controllers\ProductoController::class, 'destroy']);
 Route::post('productos', [\App\Http\Controllers\ProductoController::class, 'store']);
+Route::put('productos/{producto}', [\App\Http\Controllers\ProductoController::class, 'update']);
+*/
+
+Route::apiResource('productos',\App\Http\Controllers\ProductoController::class);
