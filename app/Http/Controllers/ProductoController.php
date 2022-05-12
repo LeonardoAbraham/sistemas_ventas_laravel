@@ -62,7 +62,7 @@ class ProductoController extends Controller
     public function show($id)
     {
         //select * from prducto where id=$id
-        $producto = Producto::with(['user:id,email,name'])->find($id);
+        $producto = Producto::with(['user:id,email,name'])->findOrFail($id);
         //return $producto;
         return \response()->json($producto,200);
     }
@@ -104,5 +104,22 @@ class ProductoController extends Controller
         }
 
 
+    }
+
+    //incrementar likes de productos
+    public function setLike($id){
+        $producto = Producto::find($id);
+        $producto->like = $producto->like + 1;
+        $producto->save();
+
+        return \response()->json(['res' => true, 'message'=>'mas un like'], 200);
+    }
+
+    public function setDislike($id){
+        $producto = Producto::find($id);
+        $producto->dislike = $producto->dislike + 1;
+        $producto->save();
+
+        return \response()->json(['res' => true, 'message'=>'mas un dislike'], 200);
     }
 }
