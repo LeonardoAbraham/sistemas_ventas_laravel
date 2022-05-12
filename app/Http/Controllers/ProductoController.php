@@ -122,4 +122,18 @@ class ProductoController extends Controller
 
         return \response()->json(['res' => true, 'message'=>'mas un dislike'], 200);
     }
+
+    public function setImagen(Request $request, $id){
+        $producto = Producto::find($id);
+        $producto->url_imagen = $this->cargarImagen($request->imagen, $id);
+        $producto->save();
+
+        return \response()->json(['res' => true, 'message'=>'imagen cargada correctamente'], 200);
+    }
+
+    private function cargarImagen($file, $id){
+        $nombreArchivo = time() . "_{$id}." . $file->getClientOriginalExtension();
+        $file->move(\public_path('imagenes'), $nombreArchivo);
+        return $nombreArchivo;
+    }
 }
