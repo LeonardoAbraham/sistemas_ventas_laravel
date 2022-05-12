@@ -23,6 +23,9 @@ Route::get("/prueba", function(){
     return \App\Models\Producto::all();
 });
 
+
+Route::post('login', [App\Http\Controllers\UserController::class, 'login'])->name('login');
+
 /*
 Route::get('productos', [\App\Http\Controllers\ProductoController::class, 'index']);
 Route::get('productos/{producto}', [\App\Http\Controllers\ProductoController::class, 'show']);
