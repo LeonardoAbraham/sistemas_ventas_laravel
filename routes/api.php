@@ -26,6 +26,13 @@ Route::get("/prueba", function(){
 
 Route::post('login', [App\Http\Controllers\UserController::class, 'login'])->name('login');
 
+Route::group(['middleware' => 'auth:api'], function(){
+    Route::apiResource('productos',\App\Http\Controllers\ProductoController::class);
+    Route::put('set_like/{id}', [App\Http\Controllers\ProductoController::class, 'setLike'])->name('set_like');
+    Route::put('set_dislike/{id}', [App\Http\Controllers\ProductoController::class, 'setDislike'])->name('set_dislike');
+    Route::put('set_imagen/{producto}', [App\Http\Controllers\ProductoController::class, 'setImagen'])->name('set_imagen');
+});
+
 /*
 Route::get('productos', [\App\Http\Controllers\ProductoController::class, 'index']);
 Route::get('productos/{producto}', [\App\Http\Controllers\ProductoController::class, 'show']);
@@ -34,7 +41,3 @@ Route::post('productos', [\App\Http\Controllers\ProductoController::class, 'stor
 Route::put('productos/{producto}', [\App\Http\Controllers\ProductoController::class, 'update']);
 */
 
-Route::apiResource('productos',\App\Http\Controllers\ProductoController::class);
-Route::put('set_like/{id}', [App\Http\Controllers\ProductoController::class, 'setLike'])->name('set_like');
-Route::put('set_dislike/{id}', [App\Http\Controllers\ProductoController::class, 'setDislike'])->name('set_dislike');
-Route::put('set_imagen/{producto}', [App\Http\Controllers\ProductoController::class, 'setImagen'])->name('set_imagen');
